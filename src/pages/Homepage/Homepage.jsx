@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 //import { Test } from './Homepage.styles';
-import Card from "../../components/Card";
+import { request } from "../../shared/services/api";
 import {
   AppBar,
   Toolbar,
@@ -10,6 +10,7 @@ import {
   MenuItem,
   Menu,
 } from "@material-ui/core";
+import Card from "../../components/Card";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
@@ -36,6 +37,10 @@ const Homepage = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  useEffect(() => {
+    request("get", "card");
+  }, []);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
