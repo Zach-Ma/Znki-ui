@@ -17,6 +17,11 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import About from "../About";
+import Deck from "../Deck";
+import Training from "../Training";
+import Statistic from "../Statistic";
 
 const CardList = ({ count = 1, ...props }) =>
   Array.from({ length: count }, (item, index) => <Card key={index} />);
@@ -33,21 +38,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const UserMenu = ({ ...props }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClose = () => {
+    // setAnchorEl(null);
+  };
+  return (
+    <Menu
+      id="menu-appbar"
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={false}
+      onClose={handleClose}
+    >
+      <MenuItem onClick={handleClose}>Profile</MenuItem>
+      <MenuItem onClick={handleClose}>My account</MenuItem>
+    </Menu>
+  );
+};
+
 const Homepage = () => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+
+  // const open = Boolean(anchorEl);
 
   useEffect(() => {
     request("get", "card");
   }, []);
 
   const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
+    // setAnchorEl(event.currentTarget);
   };
 
   return (
@@ -62,6 +91,7 @@ const Homepage = () => {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography variant="h6" className={classes.title}>
             Photos
           </Typography>
@@ -76,27 +106,18 @@ const Homepage = () => {
             >
               <AccountCircle />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={open}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-            </Menu>
+            <UserMenu></UserMenu>
           </div>
         </Toolbar>
       </AppBar>
+      <Router>
+        <Switch>
+          <Route path="/deck" component={Deck}></Route>
+          <Route path="/about" component={About}></Route>
+          <Route path="/training" component={Training}></Route>
+          <Route path="/statistic" component={Statistic}></Route>
+        </Switch>
+      </Router>
     </React.Fragment>
   );
 };
