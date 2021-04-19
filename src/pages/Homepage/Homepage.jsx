@@ -52,7 +52,7 @@ const Homepage = () => {
           <Typography variant="h6" className={classes.title}>
             Znki
           </Typography>
-          <Sidebar isSidebarOpened={openDrawer}></Sidebar>
+          <Sidebar isSidebarOpened={false}></Sidebar>
           <div>
             <IconButton onClick={handleMenu} color="inherit">
               <AccountCircle />
