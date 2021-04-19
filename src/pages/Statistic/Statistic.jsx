@@ -1,54 +1,52 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Container, Grid, makeStyles } from "@material-ui/core";
 import DashboardCard from "../../components/DashboardCard";
-import { FaGithub } from "react-icons/fa";
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
+import NoteIcon from "@material-ui/icons/Note";
 
 const useStyles = makeStyles({
   section: {
     height: 200,
     backgroundColor: "#dedede",
-    margin: ".5rem .8rem",
   },
 });
 
 const dashboardItems = [
   {
-    title: "localhost",
+    title: "Decks",
     count: 12,
-    icon: <FaGithub />,
+    icon: <LibraryBooksIcon />,
   },
   {
-    title: "localhost",
+    title: "Cards",
     count: 12,
-    icon: <FaGithub />,
+    icon: <NoteIcon />,
   },
   {
-    title: "localhost",
+    title: "Days Used",
     count: 12,
-    icon: <FaGithub />,
+    icon: <EqualizerIcon />,
   },
   {
-    title: "localhost",
+    title: "Tags",
     count: 12,
-    icon: <FaGithub />,
+    icon: <LocalOfferIcon />,
   },
 ];
 
-const Statistic = (props) => {
+const Statistic = () => {
   const classes = useStyles();
   return (
-    <Container>
-      <Grid container>
+    <Container style={{ paddingTop: "1rem" }}>
+      <Grid container spacing={1}>
         {dashboardItems.map((item, index) => (
-          <Grid item spacing={1} xs={6} lg={3} key={index}>
+          <Grid item xs={6} lg={3} key={index}>
             <DashboardCard
               title={item.title}
               count={item.count}
               renderIcon={item.icon}
-              style={{
-                margin: ".5rem .8rem",
-              }}
             />
           </Grid>
         ))}

@@ -1,28 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Paper, Typography } from "@material-ui/core/";
+import styled from "styled-components";
 
-const DashboardCard = ({
-  title = "placeholder",
-  count = 0,
-  renderIcon = <span>no icon</span>,
-  style,
-  ...props
-}) => {
+const StylePaper = styled(Paper)`
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  & svg {
+    font-size: 2.5em;
+    width: 2em;
+    color: var(--green-blue-crayola);
+  }
+  .font {
+    font-weight: 600;
+    opacity: 0.8;
+  }
+`;
+
+const DashboardCard = ({ title = "placeholder", count = 0, renderIcon }) => {
   return (
-    <Paper style={style}>
+    <StylePaper>
       {renderIcon}
-      <Typography>{title}</Typography>
-      <span>{count}</span>
-    </Paper>
+      <div>
+        <Typography variant="h4" className={"font"}>
+          {count}
+        </Typography>
+        <Typography>{title}</Typography>
+      </div>
+    </StylePaper>
   );
 };
 
 DashboardCard.propTypes = {
-  icon: PropTypes.string,
   title: PropTypes.string,
-  count: PropTypes.string,
-  renderIcon: PropTypes.func,
+  count: PropTypes.number,
+  renderIcon: PropTypes.element,
 };
 
 DashboardCard.defaultProps = {
