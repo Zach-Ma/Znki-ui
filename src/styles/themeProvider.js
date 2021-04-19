@@ -1,5 +1,9 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+/**
+ * material-ui theme color pallete
+ * @see https://material-ui.com/style/color/
+ */
 export const znkiTheme = createMuiTheme({
   palette: {
     primary: {
