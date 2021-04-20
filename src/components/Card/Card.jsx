@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import PublicIcon from "@material-ui/icons/Public";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
+import { dateDiff } from "../../shared/utils/format";
 const useStyles = makeStyles({
   root: {
     paddingLeft: ".75rem",
@@ -48,6 +49,7 @@ export default function DeckCard({
   description = "Bedfordshire tangible Refined",
 }) {
   const classes = useStyles();
+  const dayCount = dateDiff(createAt, new Date(), "day");
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -56,7 +58,7 @@ export default function DeckCard({
           color="textSecondary"
           gutterBottom
         >
-          {createAt}
+          {`Already in deck for ${dayCount} ${dayCount >= 2 ? "days" : "day"} `}
         </Typography>
         <Typography
           color="primary"
