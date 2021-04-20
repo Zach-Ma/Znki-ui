@@ -11,15 +11,20 @@ const Deck = (props) => {
   });
 
   useEffect(() => {
-    http.get("/api/deck").then((res) => {
-      console.log(res);
+    http.get("/deck", { take: 20, skip: 0 }).then((res) => {
+      if (res?.data?.statusCode === 200) {
+        setState({ deckItems: res.data.data });
+      }
     });
   }, []);
 
   return (
     <Container style={{ paddingTop: "1rem" }}>
-      <Grid container>
-        <DeckCard></DeckCard>
+      <Grid container direction="row" justify="center" alignItems="flex-start">
+        {state.deckItems &&
+          state.deckItems.map((item, index) => (
+            <DeckCard key={index} {...item}></DeckCard>
+          ))}
       </Grid>
     </Container>
   );

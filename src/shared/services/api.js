@@ -38,9 +38,10 @@ axiosInstance.interceptors.response.use(
 
 
 export default {
-  get: (path) => axiosInstance({
+  get: (path, params) => axiosInstance({
     method: 'GET',
-    url: path
+    url: path,
+    params,
   }),
   post: (path, data) => axiosInstance({
     method: 'POST',

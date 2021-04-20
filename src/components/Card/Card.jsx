@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import { Chip } from "@material-ui/core";
+import { Chip, Box } from "@material-ui/core";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
@@ -12,8 +12,7 @@ import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 const useStyles = makeStyles({
   root: {
     paddingLeft: ".75rem",
-    minWidth: 200,
-    maxWidth: "90%",
+    width: "90%",
     boxShadow: "9px 6px 13px 0px  rgba(34, 35, 58, 0.2)",
     borderRadius: 12,
   },
@@ -29,6 +28,11 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     "& button": {
       flexShrink: 0,
+    },
+  },
+  box: {
+    "& *": {
+      margin: "0.2rem",
     },
   },
 });
@@ -68,20 +72,22 @@ export default function DeckCard({
         <Typography variant="body2" component="p"></Typography>
       </CardContent>
       <CardActions className={classes.actions}>
-        <Chip
-          variant="outlined"
-          color="primary"
-          size="small"
-          label={isPublic ? "public" : "private"}
-          icon={<PublicIcon />}
-        />
-        <Chip
-          variant="outlined"
-          color="primary"
-          size="small"
-          label="placeholder"
-          icon={<AssignmentTurnedInIcon />}
-        />
+        <Box className={classes.box}>
+          <Chip
+            variant="outlined"
+            color="primary"
+            size="small"
+            label={isPublic ? "public" : "private"}
+            icon={<PublicIcon />}
+          />
+          <Chip
+            variant="outlined"
+            color="primary"
+            size="small"
+            label="placeholder"
+            icon={<AssignmentTurnedInIcon />}
+          />
+        </Box>
         <Button color="primary" size="small">
           view
         </Button>
