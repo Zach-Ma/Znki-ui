@@ -57,6 +57,7 @@ const Homepage = () => {
       </AppBar>
       <Router>
         <Switch>
+          <Route exact path="/" component={Deck}></Route>
           <Route exact path="/deck" component={Deck}></Route>
           <Route exact path="/about" component={About}></Route>
           <Route exact path="/training" component={Training}></Route>
