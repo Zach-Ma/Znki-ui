@@ -49,5 +49,6 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-react-redux": "^3.3.2"
-  }
+  },
+  "proxy": "http://127.0.0.1:3000"
 }

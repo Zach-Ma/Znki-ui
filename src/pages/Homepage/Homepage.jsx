@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { request } from "../../shared/services/api";
 import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
-import Card from "../../components/Card";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -28,10 +26,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Homepage = () => {
   const classes = useStyles();
-
-  useEffect(() => {
-    request("get", "card");
-  }, []);
 
   const handleMenu = (event) => {
     // setAnchorEl(event.currentTarget);
