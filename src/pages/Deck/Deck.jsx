@@ -12,7 +12,7 @@ const Deck = (props) => {
 
   useEffect(() => {
     http.get("/deck", { take: 20, skip: 0 }).then((res) => {
-      if (res?.data?.statusCode === 200) {
+      if (res?.data?.message === "success") {
         setState({ deckItems: res.data.data });
       }
     });

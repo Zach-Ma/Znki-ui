@@ -1,4 +1,5 @@
 import axios from 'axios'
+import qs from 'qs';
 
 const axiosInstance = axios.create({
   // NOTE package.json proxy has been set
@@ -30,6 +31,10 @@ axiosInstance.interceptors.response.use(
   }
 );
 
+axiosInstance.interceptors.request.use(config => {
+  config.paramsSerializer = params => qs.stringify(params);
+  return config;
+});
 
 export default {
   get: (path, params) => axiosInstance({

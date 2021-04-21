@@ -7,6 +7,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import About from "../About";
 import Deck from "../Deck";
+import CardPage from "../Card";
 import Training from "../Training";
 import Statistic from "../Statistic";
 import UserMenu from "../../components/UserMenu";
@@ -62,6 +63,7 @@ const Homepage = () => {
           <Route exact path="/about" component={About}></Route>
           <Route exact path="/training" component={Training}></Route>
           <Route exact path="/statistic" component={Statistic}></Route>
+          <Route exact path="/card" component={CardPage}></Route>
           <Route path="*">
             <code>Page Not Found</code>
           </Route>
