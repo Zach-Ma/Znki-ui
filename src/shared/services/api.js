@@ -13,14 +13,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   response => {
-    if (response.status >= 200 && response.status < 300) {
-      return Promise.resolve(response);
-    } else {
-      return Promise.reject(response);
-    }
+    return Promise.resolve(response);
   },
   error => {
-    const { status, data, config } = error
+    const { status, data, config } = error.response;
     if (status) {
       switch (status) {
         // unauthorized
@@ -28,8 +24,6 @@ axiosInstance.interceptors.response.use(
           localStorage.clear();
           window.location.href = `/auth`;
           break;
-        default:
-          console.warn(error);
       }
       return Promise.reject(error.response);
     }

@@ -101,7 +101,7 @@ export default function DeckCard({
 DeckCard.propTypes = {
   version: PropTypes.number,
   pid: PropTypes.number,
-  conf: PropTypes.object,
+  conf: PropTypes.string,
   createAt: PropTypes.string,
   updateAt: PropTypes.string,
   isPublic: PropTypes.bool,
