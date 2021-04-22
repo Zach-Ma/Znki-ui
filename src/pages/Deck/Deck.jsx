@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Container, Grid } from "@material-ui/core";
 //import { Test } from './Deck.styles';
 import DeckCard from "../../components/Card";
+import Fab from "../../components/Fab";
 import http from "../../shared/services/api";
 
 const Deck = (props) => {
@@ -20,11 +21,14 @@ const Deck = (props) => {
 
   return (
     <Container style={{ paddingTop: "1rem" }}>
-      <Grid container direction="row" justify="center" alignItems="flex-start">
+      <Grid container direction="row" justify="center" spacing={1}>
         {state.deckItems &&
           state.deckItems.map((item, index) => (
-            <DeckCard key={index} {...item}></DeckCard>
+            <Grid item key={index}>
+              <DeckCard {...item}></DeckCard>
+            </Grid>
           ))}
+        <Fab actionType={"ADD_DECK"}></Fab>
       </Grid>
     </Container>
   );
