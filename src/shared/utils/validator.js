@@ -1,0 +1,1 @@
+export const isValidId = val => val && val > 0;

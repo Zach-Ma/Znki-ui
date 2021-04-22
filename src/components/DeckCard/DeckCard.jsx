@@ -9,7 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import PublicIcon from "@material-ui/icons/Public";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
-import { dateDiff } from "../../shared/utils/format";
+import { dateDiff } from "../../shared/utils/transform";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     paddingLeft: ".75rem",
@@ -39,6 +40,7 @@ const useStyles = makeStyles({
 });
 
 export default function DeckCard({
+  id = 0,
   version = 0,
   pid = -1,
   conf = {},
@@ -50,6 +52,7 @@ export default function DeckCard({
 }) {
   const classes = useStyles();
   const dayCount = dateDiff(createAt, new Date(), "day");
+  const query = `?id=${id}`;
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -90,7 +93,12 @@ export default function DeckCard({
             icon={<AssignmentTurnedInIcon />}
           />
         </Box>
-        <Button color="primary" size="small">
+        <Button
+          color="primary"
+          size="small"
+          component={Link}
+          to={`/card${query}`}
+        >
           view
         </Button>
       </CardActions>
@@ -99,6 +107,7 @@ export default function DeckCard({
 }
 
 DeckCard.propTypes = {
+  id: PropTypes.number,
   version: PropTypes.number,
   pid: PropTypes.number,
   conf: PropTypes.string,
