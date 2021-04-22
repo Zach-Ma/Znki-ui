@@ -15,10 +15,11 @@ export const dateDiff = (date1, date2, format) => {
 
 /**
  * 
- * @param {*} entries URLSearchParams entries
+ * @param { URLSearchParams } entries URLSearchParams entries
  * @returns object
  */
-export const urlParamEntriesToObj = (entries) => {
+export const urlParamEntriesToObj = (param) => {
+  const entries = param.entries()
   const result = {}
   for (const [key, value] of entries) {
     result[key] = value;

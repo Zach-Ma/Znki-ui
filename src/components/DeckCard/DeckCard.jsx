@@ -52,7 +52,6 @@ export default function DeckCard({
 }) {
   const classes = useStyles();
   const dayCount = dateDiff(createAt, new Date(), "day");
-  const query = `?id=${id}`;
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -97,7 +96,15 @@ export default function DeckCard({
           color="primary"
           size="small"
           component={Link}
-          to={`/card${query}`}
+          to={{
+            pathname: "/card",
+            state: {
+              deckInfo: {
+                id,
+                name,
+              },
+            },
+          }}
         >
           view
         </Button>

@@ -11,13 +11,15 @@ import {
   Box,
 } from "@material-ui/core";
 import http from "../../shared/services/api";
+import { useLocation } from "react-router-dom";
+import { isValidId as toValidId } from "../../shared/utils/validator";
+import { urlParamEntriesToObj } from "../../shared/utils/transform";
 
 const withStyles = makeStyles({
   dock: {
     borderRadius: "8px",
     padding: "10px 1rem",
-    background: "#f7ede3",
-    boxShadow: "5px -5px 10px #c6beb6,5px -5px 10px #fffff5",
+    boxShadow: "-9px 9px 19px #dedbcc, 9px -9px 19px #fffffa",
     height: "4rem",
   },
   cardContent: {
@@ -26,11 +28,11 @@ const withStyles = makeStyles({
   },
 });
 
-const Dock = ({ deckName = "deck name", style, ...props }) => {
+const Dock = ({ deckInfo, style, ...props }) => {
   const classes = withStyles();
   return (
     <Box className={classes.dock} style={style}>
-      <Typography classes={classes.dock}>{deckName}</Typography>
+      <Typography>{deckInfo.name}</Typography>
     </Box>
   );
 };
@@ -65,7 +67,7 @@ const Card = ({
       <AccordionSummary>
         <Typography>{title}</Typography>
       </AccordionSummary>
-      <AccordionDetails className={classes.cardContent}>
+      <AccordionDetails classes={classes.cardContent}>
         {notes &&
           notes.length > 0 &&
           notes.map((item) => (
@@ -77,21 +79,42 @@ const Card = ({
     </Accordion>
   );
 };
-// TODO remove default deck id
-const CardPage = ({ deckName, deckId = 2, ...props }) => {
-  const [cards, setCards] = useState([]);
+
+// TODO useEffect wrapped up
+const CardPage = () => {
+  const [state, setState] = useState({
+    where: {
+      deckId: 0,
+    },
+    cards: [],
+  });
+  const location = useLocation();
+
   useEffect(() => {
-    http.post("/card", { take: 20, skip: 0, where: { deckId } }).then((res) => {
-      if (res?.data?.message === "success") {
-        setCards(res.data.data);
-      }
-    });
-  }, [deckId]);
+    const data = {
+      take: 20,
+      skip: 0,
+      where: {
+        deckId: location?.state?.deckInfo?.id || 0,
+      },
+    };
+    if (data.where.deckId > 0) {
+      http.post("/card", data).then((res) => {
+        if (res?.data?.message === "success") {
+          setState({ ...state, cards: res.data.data });
+        }
+      });
+    }
+  }, []);
+
   return (
     <Container>
       <Grid style={{ paddingTop: "1rem" }}>
-        <Dock deckName={deckName} style={{ marginBottom: "1rem" }} />
-        {cards.map((item, index) => (
+        <Dock
+          deckInfo={location.state.deckInfo}
+          style={{ marginBottom: "1rem" }}
+        />
+        {state.cards.map((item, index) => (
           <Card key={index} {...item} />
         ))}
       </Grid>
@@ -99,14 +122,11 @@ const CardPage = ({ deckName, deckId = 2, ...props }) => {
   );
 };
 
-CardPage.propTypes = {
-  deckName: PropTypes.string,
-  deckId: PropTypes.number,
-};
+CardPage.propTypes = {};
 
 Dock.propTypes = {
-  deckName: PropTypes.string,
-  style: PropTypes.obj,
+  deckInfo: PropTypes.object,
+  style: PropTypes.object,
 };
 
 Card.propTypes = {
@@ -119,7 +139,7 @@ Card.propTypes = {
   reviews: PropTypes.number,
   createAt: PropTypes.string,
   updateAt: PropTypes.string,
-  notes: PropTypes.obj,
+  notes: PropTypes.array,
 };
 
 CardPage.defaultProps = {
