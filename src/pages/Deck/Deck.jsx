@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Container, Grid } from "@material-ui/core";
 //import { Test } from './Deck.styles';
-import DeckCard from "../../components/Card";
+import DeckCard from "../../components/DeckCard";
 import Fab from "../../components/Fab";
 import http from "../../shared/services/api";
 
