@@ -12,8 +12,6 @@ import {
 } from "@material-ui/core";
 import http from "../../shared/services/api";
 import { useLocation } from "react-router-dom";
-import { isValidId as toValidId } from "../../shared/utils/validator";
-import { urlParamEntriesToObj } from "../../shared/utils/transform";
 
 const withStyles = makeStyles({
   dock: {
